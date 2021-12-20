@@ -23,9 +23,9 @@ const ContactList = () => {
     const location = useLocation()
     const navigation = useNavigate()
     const [contactid,setContactId]=useState()
-    const [dataByName, setDataByName] = useState()
-    const [dataByType, setDataByType] = useState()
-    const [dataByNumber, setDataByNumber] = useState()
+    // const [dataByName, setDataByName] = useState()
+    // const [dataByType, setDataByType] = useState()
+    // const [dataByNumber, setDataByNumber] = useState()
     const [buttonclick, setButtonClick] = useState(false)
 
     useEffect(() => {
@@ -69,9 +69,9 @@ const ContactList = () => {
             })
         const data = await res.json()
         console.log("ok =>", data)
-        setDataByName(data.name)
-        setDataByType(data.type)
-        setDataByNumber(data.number)
+        // setDataByName(data.name)
+        // setDataByType(data.type)
+        // setDataByNumber(data.number)
         setContactId(data.id)
         setButtonClick(true)
     }
