@@ -4,13 +4,13 @@ import axios from "axios"
 import Form from "./Form"
 import Header from "./Header"
 import { useNavigate } from "react-router-dom";
-// import UpdateContact from "./UpdateContact"
 import { Link } from "react-router-dom"
 import { useLocation } from "react-router"
 import UpdateContact from "./UpdateContact"
 import ShowInfo from "./ShowInfo"
 import SearchBar from "./SearchBar"
 import About from "./About"
+import Pagination from "./Pagination"
 
 
 
@@ -22,11 +22,12 @@ const ContactList = () => {
     const [dataAdd, setDataAdd] = useState([])
     const location = useLocation()
     const navigation = useNavigate()
-    const [contactid,setContactId]=useState()
-    // const [dataByName, setDataByName] = useState()
-    // const [dataByType, setDataByType] = useState()
-    // const [dataByNumber, setDataByNumber] = useState()
+    const [contactid, setContactId] = useState()
     const [buttonclick, setButtonClick] = useState(false)
+    //Pagination state
+    const [currentPage, setCurrentPage] = useState(1)
+    const [contactsPerPage, setContactsPerPage] = useState(5)
+
 
     useEffect(() => {
         axios.get(`${USERS_REST_API_URL}`).then((response) => {
@@ -69,14 +70,17 @@ const ContactList = () => {
             })
         const data = await res.json()
         console.log("ok =>", data)
-        // setDataByName(data.name)
-        // setDataByType(data.type)
-        // setDataByNumber(data.number)
         setContactId(data.id)
         setButtonClick(true)
     }
 
+    //pagination
+    const indexOfLastContact = currentPage * contactsPerPage
+    const indexOfFirstContact = indexOfLastContact - contactsPerPage
+    const currentContacts = contacts.slice(indexOfFirstContact, indexOfLastContact)
 
+    //Change page on pagination
+    const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     return (
         <div>
@@ -84,15 +88,16 @@ const ContactList = () => {
             <Header onAdd={() => setShowForm(!showForm)}
                 showAdd={showForm}
             />
-             
+
             {showForm ? <Form data={dataAdd} /> : null}
             <h2 className="text-center">Contact List</h2>
             <div className="row">
                 {/* <button className="btn btn-primary" onClick={this.addEmployee}> Add Employee</button> */}
             </div>
             <br></br>
+
             <div className="row">
-                <table className="table table-striped table-bordered">
+                <table id='table' className="table table-striped table-bordered">
 
                     <thead>
                         <tr>
@@ -104,7 +109,7 @@ const ContactList = () => {
                     </thead>
                     <tbody>
                         {
-                            contacts.map(
+                            currentContacts.map(
                                 (contact) =>
                                     <tr key={contact.id}>
                                         <td> {contact.name} </td>
@@ -112,10 +117,9 @@ const ContactList = () => {
                                         <td> {contact.number}</td>
                                         <td>
 
-                                            <button onClick={() => editContact(contact.id, contact.name, contact.type, contact.number)} className="btn btn-info">Update </button>
-
-                                            <button style={{ marginLeft: "10px" }} onClick={() => deleteContact(contact.id)} className="btn btn-danger">Delete </button>
-                                            <button onClick={() => getContactById(contact.id)} className="btn btn-success">Show info </button>
+          <button onClick={() => editContact(contact.id, contact.name, contact.type, contact.number)} className="btn btn-info">Update </button>
+          <button style={{ marginLeft: "10px" }} onClick={() => deleteContact(contact.id)} className="btn btn-danger">Delete </button>
+          <button onClick={() => getContactById(contact.id)} className="btn btn-success">Show info </button>
 
                                         </td>
 
@@ -129,9 +133,9 @@ const ContactList = () => {
                 </table>
                 {buttonclick == true &&
                     navigation("/showInfo/" + contactid)
-                    // <ShowInfo />
                 }
             </div>
+            <Pagination contactsPerPage={contactsPerPage} totalContacts={contacts.length} paginate={paginate} />
             <About />
         </div>
     )
