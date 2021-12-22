@@ -27,12 +27,30 @@ const ContactList = () => {
     //Pagination state
     const [currentPage, setCurrentPage] = useState(1)
     const [contactsPerPage, setContactsPerPage] = useState(5)
+    
 
+      //Get contacts pagination
+    //   const page = async (currentPage) => {
+    //     const res = await fetch(`http://localhost:8088/contactspagination/${currentPage}`,
+    //         {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //              },
+    //             //  body: JSON.stringify({
+                   
+    //             //  })
+    //         })
+    //     const data = await res.json()
+    //     setBackendData(data)
+    //     console.log("ok ok=>", data)
+    // }
 
     useEffect(() => {
         axios.get(`${USERS_REST_API_URL}`).then((response) => {
             setContacts(response.data);
         });
+        // page(currentPage)
     }, []);
 
     if (!contacts) return null;
@@ -50,7 +68,6 @@ const ContactList = () => {
         console.log(id, name, type, number)
     }
 
-
     //DELETE REQUEST 
     const deleteContact = async (id) => {
         const res = await fetch(`http://localhost:8088/delete/` + id,
@@ -62,6 +79,7 @@ const ContactList = () => {
             })
         window.location.reload(false)
     }
+
     //GET Contact By Id 
     const getContactById = async (id) => {
         const res = await fetch(`http://localhost:8088/contacts/${id}`,
@@ -74,7 +92,9 @@ const ContactList = () => {
         setButtonClick(true)
     }
 
-    //pagination
+  
+
+    //Pagination states
     const indexOfLastContact = currentPage * contactsPerPage
     const indexOfFirstContact = indexOfLastContact - contactsPerPage
     const currentContacts = contacts.slice(indexOfFirstContact, indexOfLastContact)

@@ -17,9 +17,9 @@ const Pagination = ({contactsPerPage,totalContacts,paginate}) => {
  {   
             pageNumber.map(number => (
                 <td key={number} >
-                    <p onClick={()=>paginate(number)}  className="page-link">
+                    <a href={'#page'+number} onClick={()=>paginate(number)}  className="page-link">
                         {number}
-                    </p>
+                    </a>
                     </td>
             ))
         }
