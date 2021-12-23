@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import { useParams } from 'react-router'
 import { useState } from 'react/cjs/react.development'
@@ -46,7 +45,6 @@ const UpdateContact = (dataByName,) => {
           "type": type,
           "number": number
         })
-
       })
     const data = await res.json()
   }

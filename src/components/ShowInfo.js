@@ -1,12 +1,10 @@
 import React from 'react'
-import UpdateContact from './UpdateContact'
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react"
 
 
 
 const ShowInfo = (props) => {
-    const [contact, setContacts] = useState()
     const [name, setName] = useState()
     const [type, setType] = useState()
     const [number, setNumber] = useState()

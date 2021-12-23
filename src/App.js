@@ -1,15 +1,10 @@
 import ContactList from "./components/ContactList"
-import Header from "./components/Header"
-import Form from "./components/Form"
-import { useState } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import UpdateContact from "./components/UpdateContact"
-import { Link } from "react-router-dom"
 import 'bootstrap';
 import ShowInfo from "./components/ShowInfo"
 
-
-const App = () => {
+const App = (z) => {
 
     return (
         <Router>
@@ -20,7 +15,7 @@ const App = () => {
                     <Route path="/showInfo/:id" element={<ShowInfo />}></Route>
                 </Routes>
                 {/* <Link to="/updateContact/:id">{UpdateContact}</Link> */}
-            </div>
+           </div>
         </Router>
     )
 }

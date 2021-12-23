@@ -1,6 +1,4 @@
 import React from 'react'
-import axios from 'axios';
-import { useState,useEffect } from 'react';
 
 const Pagination = ({contactsPerPage,totalContacts,paginate}) => {
 
@@ -12,8 +10,7 @@ const Pagination = ({contactsPerPage,totalContacts,paginate}) => {
     }
 
     return (
-        <div className='pagination justify-content-center'>
-            
+        <div className='pagination justify-content-center'> 
  {   
             pageNumber.map(number => (
                 <td key={number} >

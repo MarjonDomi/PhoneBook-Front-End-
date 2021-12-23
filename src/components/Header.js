@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Button from './Button'
-import SearchBar from './SearchBar'
+// import SearchBar from './SearchBar'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faSearch } from "@fortawesome/free-solid-svg-icons";
 

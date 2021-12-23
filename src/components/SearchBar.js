@@ -16,7 +16,7 @@ const SearchBar = () => {
       })
 
     const data = await res.json()
-    if (data == '' || searchName.toLowerCase() == '') {
+    if (data === '' || searchName.toLowerCase() === '') {
       alert('No data found  :(')
     } else {
       setListContacts(data)
@@ -39,7 +39,7 @@ const SearchBar = () => {
         <div className='search-container'><input type="search" placeholder="Search.." value={searchName} onChange={(event) => setSearchName(event.target.value)} name="search" /></div>
       </form>
 
-      {buttonclicked == true &&
+      {buttonclicked === true &&
         <form className='add-form'>
           <table className="table table-striped table-bordered">
             <thead>

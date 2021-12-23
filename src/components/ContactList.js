@@ -4,10 +4,8 @@ import axios from "axios"
 import Form from "./Form"
 import Header from "./Header"
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom"
 import { useLocation } from "react-router"
 import UpdateContact from "./UpdateContact"
-import ShowInfo from "./ShowInfo"
 import SearchBar from "./SearchBar"
 import About from "./About"
 import Pagination from "./Pagination"
@@ -29,28 +27,10 @@ const ContactList = () => {
     const [contactsPerPage, setContactsPerPage] = useState(5)
     
 
-      //Get contacts pagination
-    //   const page = async (currentPage) => {
-    //     const res = await fetch(`http://localhost:8088/contactspagination/${currentPage}`,
-    //         {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //              },
-    //             //  body: JSON.stringify({
-                   
-    //             //  })
-    //         })
-    //     const data = await res.json()
-    //     setBackendData(data)
-    //     console.log("ok ok=>", data)
-    // }
-
     useEffect(() => {
         axios.get(`${USERS_REST_API_URL}`).then((response) => {
             setContacts(response.data);
         });
-        // page(currentPage)
     }, []);
 
     if (!contacts) return null;
@@ -92,8 +72,6 @@ const ContactList = () => {
         setButtonClick(true)
     }
 
-  
-
     //Pagination states
     const indexOfLastContact = currentPage * contactsPerPage
     const indexOfFirstContact = indexOfLastContact - contactsPerPage
@@ -112,13 +90,10 @@ const ContactList = () => {
             {showForm ? <Form data={dataAdd} /> : null}
             <h2 className="text-center">Contact List</h2>
             <div className="row">
-                {/* <button className="btn btn-primary" onClick={this.addEmployee}> Add Employee</button> */}
             </div>
             <br></br>
-
             <div className="row">
                 <table id='table' className="table table-striped table-bordered">
-
                     <thead>
                         <tr>
                             <th> Contact Full Name</th>
@@ -136,22 +111,16 @@ const ContactList = () => {
                                         <td> {contact.type}</td>
                                         <td> {contact.number}</td>
                                         <td>
-
           <button onClick={() => editContact(contact.id, contact.name, contact.type, contact.number)} className="btn btn-info">Update </button>
           <button style={{ marginLeft: "10px" }} onClick={() => deleteContact(contact.id)} className="btn btn-danger">Delete </button>
           <button onClick={() => getContactById(contact.id)} className="btn btn-success">Show info </button>
-
                                         </td>
-
                                     </tr>
-
                             )
-
                         }
-
                     </tbody>
                 </table>
-                {buttonclick == true &&
+                {buttonclick === true &&
                     navigation("/showInfo/" + contactid)
                 }
             </div>
